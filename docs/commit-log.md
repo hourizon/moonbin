@@ -78,7 +78,7 @@ implementing the encoder and decoder.
 
 ## Commit 5
 
-**Hash:** See `git log` for the final hash of this self-documenting commit.
+**Hash:** `67167ca`
 
 **Message:** `Add commit history record`
 
@@ -93,6 +93,27 @@ effective commit and explains why the commit is meaningful.
 - Recorded the cleanup commit that removed the early discussion notes.
 - Recorded the binary format specification commit.
 - Added a maintenance note for future commit-log updates.
+
+## Commit 6
+
+**Hash:** See `git log` for the final hash of this self-documenting commit.
+
+**Message:** `Define BinValue core data model`
+
+**Purpose:** Add the central data model that later encoder and decoder modules
+will use as their stable input and output type.
+
+**Changes:**
+
+- Added `value.mbt`.
+- Defined the public `BinValue` enum with Null, Bool, Int, Double, String,
+  Bytes, Array, and Object variants.
+- Added `BinValue::kind()` as a small helper for tests and debugging.
+- Added `value_model_name()` to expose the selected core model name.
+- Extended tests to cover the value model name and representative `BinValue`
+  kind names.
+- Updated this commit log so the repository continues to explain each
+  effective commit.
 
 ## Maintenance Note
 
