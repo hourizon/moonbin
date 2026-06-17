@@ -4,7 +4,7 @@
 /// `BinValue` is the stable intermediate representation that moonbin v1
 /// encodes to bytes and decodes from bytes. User-defined structs can be mapped
 /// to this model explicitly without relying on runtime reflection.
-pub enum BinValue {
+pub(all) enum BinValue {
   Null
   Bool(Bool)
   Int(Int)

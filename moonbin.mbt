@@ -9,3 +9,9 @@ pub fn version() -> String {
 pub fn value_model_name() -> String {
   "BinValue"
 }
+
+///|
+/// Returns the name of the decode error model used by moonbin v1.
+pub fn error_model_name() -> String {
+  "DecodeError"
+}

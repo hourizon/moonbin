@@ -8,7 +8,6 @@ repository = ""
 
 license = "MIT"
 
-keywords = ["binary", "serialization", "moonbit"]
+keywords = [ "binary", "serialization", "moonbit" ]
 
 description = "A lightweight binary serialization and deserialization library for MoonBit."
-

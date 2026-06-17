@@ -1,6 +1,7 @@
 # MoonBit build outputs
 target/
 .moon/
+_build/
 
 # Editor and system files
 .vscode/
@@ -9,4 +10,3 @@ target/
 *.tmp
 Thumbs.db
 Desktop.ini
-
