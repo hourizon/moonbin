@@ -1,0 +1,12 @@
+# MoonBit build outputs
+target/
+.moon/
+
+# Editor and system files
+.vscode/
+.idea/
+*.swp
+*.tmp
+Thumbs.db
+Desktop.ini
+
