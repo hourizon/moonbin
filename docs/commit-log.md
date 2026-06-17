@@ -100,7 +100,7 @@
 
 ## Commit 7
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `7adbe32`
 
 **Message：** `Define DecodeError model`
 
@@ -116,6 +116,22 @@
 - 扩展测试，覆盖错误模型名称、错误分类和错误信息。
 - 调整 `BinValue` 枚举可见性，使测试和后续模块可以构造 `BinValue`。
 - 更新忽略规则，忽略 MoonBit 测试产生的 `_build/` 目录。
+
+## Commit 8
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Add usage examples and split tests`
+
+**目的：** 整理当前测试结构，并补充 README 示例，让后续模块开发有清晰的测试落点和使用说明。
+
+**主要变更：**
+
+- 扩充 `README.mbt.md`，加入基础值、结构化数据和错误模型示例。
+- 简化 `moonbin_test.mbt`，只保留版本和模型名称等入口层测试。
+- 新增 `value_test.mbt`，集中测试 `BinValue` 相关行为。
+- 新增 `error_test.mbt`，集中测试 `DecodeError` 相关行为。
+- 增加用户对象映射为 `BinValue::Object` 的示例测试。
 
 ## 后续维护说明
 
