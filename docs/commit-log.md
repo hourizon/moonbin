@@ -119,7 +119,7 @@
 
 ## Commit 8
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `990e6ab`
 
 **Message：** `Add usage examples and split tests`
 
@@ -132,6 +132,22 @@
 - 新增 `value_test.mbt`，集中测试 `BinValue` 相关行为。
 - 新增 `error_test.mbt`，集中测试 `DecodeError` 相关行为。
 - 增加用户对象映射为 `BinValue::Object` 的示例测试。
+
+## Commit 9
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Add ByteWriter module skeleton`
+
+**目的：** 加入后续编码器会使用的最小字节写入器框架，为 `BinValue -> Bytes` 编码方向搭建底层模块。
+
+**主要变更：**
+
+- 新增 `writer.mbt`。
+- 定义 `ByteWriter` 结构体，暂时用 `Array[Int]` 保存 0 到 255 范围内的字节值。
+- 新增 `ByteWriter::new()`、`len()`、`is_empty()` 和 `write_u8()`。
+- 新增 `writer_test.mbt`。
+- 测试空 writer、成功写入合法 u8、拒绝非法 u8 以及长度统计。
 
 ## 后续维护说明
 
