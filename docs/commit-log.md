@@ -135,7 +135,7 @@
 
 ## Commit 9
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `efdff9b`
 
 **Message：** `Add ByteWriter module skeleton`
 
@@ -148,6 +148,22 @@
 - 新增 `ByteWriter::new()`、`len()`、`is_empty()` 和 `write_u8()`。
 - 新增 `writer_test.mbt`。
 - 测试空 writer、成功写入合法 u8、拒绝非法 u8 以及长度统计。
+
+## Commit 10
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Add ByteReader module skeleton`
+
+**目的：** 加入后续解码器会使用的最小字节读取器框架，为 `Bytes -> BinValue` 解码方向搭建底层模块。
+
+**主要变更：**
+
+- 新增 `reader.mbt`。
+- 定义 `ByteReader` 结构体，暂时从 `Array[Int]` 读取字节值，并维护读取位置。
+- 新增 `ByteReader::new()`、`len()`、`position()`、`remaining()`、`is_empty()` 和 `read_u8()`。
+- 新增 `reader_test.mbt`。
+- 测试初始位置、顺序读取、剩余长度变化以及空输入返回 `UnexpectedEOF`。
 
 ## 后续维护说明
 
