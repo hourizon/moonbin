@@ -17,13 +17,6 @@ moonbin 会定义一套紧凑、可文档化、可测试的自定义二进制格
 - 设计 moonbin v1 二进制格式
 - 为后续 `ByteWriter`、`ByteReader`、编码器和解码器搭建项目框架
 
-## 非目标
-
-- 不做 schema 文件
-- 不做代码生成
-- 不兼容 protobuf wire format
-- 不自动序列化任意 MoonBit struct
-
 用户自定义结构体可以通过显式转换函数接入：
 
 ```text
