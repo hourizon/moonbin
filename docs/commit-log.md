@@ -151,7 +151,7 @@
 
 ## Commit 10
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `fd26cc4`
 
 **Message：** `Add ByteReader module skeleton`
 
@@ -164,6 +164,36 @@
 - 新增 `ByteReader::new()`、`len()`、`position()`、`remaining()`、`is_empty()` 和 `read_u8()`。
 - 新增 `reader_test.mbt`。
 - 测试初始位置、顺序读取、剩余长度变化以及空输入返回 `UnexpectedEOF`。
+
+## Commit 11
+
+**Hash：** `c4df95f`
+
+**Message：** `Add MIT license`
+
+**目的：** 为项目补充 OSI 认可的项目级开源许可证，明确代码使用、修改和分发规则。
+
+**主要变更：**
+
+- 在仓库根目录新增 `LICENSE`。
+- 许可证与 `moon.mod` 中声明的 MIT 保持一致。
+
+## Commit 12
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Upgrade byte reader and writer primitives`
+
+**目的：** 将临时字节骨架升级为基于 MoonBit 官方 `Bytes` 和 `Buffer` 的正式字节读写层，为编解码器提供稳定底座。
+
+**主要变更：**
+
+- `ByteWriter` 改用 `@buffer.Buffer` 保存真实字节。
+- 支持 big-endian u32、i64、f64 和原始 Bytes 写入。
+- `ByteReader` 改为直接读取 `Bytes`。
+- 支持 big-endian u32、i64、f64 和定长原始 Bytes 读取。
+- 增加截断输入不推进读取位置等边界测试。
+- 严格模式下通过 `moon check --deny-warn` 和 `moon test --deny-warn`。
 
 ## 后续维护说明
 
