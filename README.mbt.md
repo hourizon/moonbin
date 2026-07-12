@@ -41,14 +41,31 @@ test "create primitive bin values" {
 
 ```moonbit nocheck
 ///|
-test "represent user as bin value" {
-  let user = BinValue::Object([
-    ("name", BinValue::String("Hou")),
-    ("age", BinValue::Int(18)),
+struct User {
+  name : String
+  age : Int
+}
+
+///|
+fn User::to_bin(self : User) -> BinValue {
+  BinValue::Object([
+    ("name", BinValue::String(self.name)),
+    ("age", BinValue::Int(self.age)),
   ])
-  inspect(user.kind(), content="object")
+}
+
+///|
+fn User::from_bin(value : BinValue) -> Result[User, DecodeError] {
+  match value {
+    BinValue::Object(
+      [("name", BinValue::String(name)), ("age", BinValue::Int(age))]
+    ) => Ok({ name, age })
+    other => Err(DecodeError::InvalidType("User object", other.kind()))
+  }
 }
 ```
+
+完整的可执行测试位于 `adapter_test.mbt`。
 
 ## 错误模型示例
 

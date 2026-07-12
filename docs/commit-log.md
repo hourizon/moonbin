@@ -215,7 +215,7 @@
 
 ## Commit 14
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `0c4b4c5`
 
 **Message：** `Add runnable demo and continuous integration`
 
@@ -226,6 +226,21 @@
 - 新增 `cmd/demo` 主包，通过 `moon run cmd/demo` 展示 Object 的编码与解码。
 - 新增 GitHub Actions CI，自动执行格式检查、严格 check、严格 build、严格 test 和 demo。
 - 更新 README，加入 demo 运行命令。
+
+## Commit 15
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Add typed struct adapter example`
+
+**目的：** 展示 MoonBit 在不依赖运行时反射的情况下，如何通过显式转换函数让业务结构体接入 moonbin。
+
+**主要变更：**
+
+- 新增 `adapter_test.mbt`，定义 User 与 `BinValue` 的双向转换。
+- 测试 User 经过编码、解码和类型恢复后的完整往返。
+- 测试适配器面对不兼容 `BinValue` 时返回结构化错误。
+- 扩充 `README.mbt.md` 中的结构体接入示例。
 
 ## 后续维护说明
 
