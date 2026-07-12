@@ -2,6 +2,14 @@
 
 moonbin 是一个面向 MoonBit 的轻量级二进制序列化与反序列化库。
 
+## 安装
+
+```bash
+moon add hourizon/moonbin@0.1.0
+```
+
+[在 mooncakes.io 查看 hourizon/moonbin](https://mooncakes.io/docs/hourizon/moonbin)
+
 项目第一版聚焦于一件事：
 
 ```text
@@ -17,6 +25,7 @@ moonbin 会定义一套紧凑、可文档化、可测试的自定义二进制格
 - 支持 Null、Bool、Int、Double、String 和 Bytes
 - 支持 Array 和 Object 的递归编解码
 - 对非法标签、非法 Bool、截断输入、非法 UTF-8 和尾随字节返回明确错误
+- 支持通过 `DecodeLimits` 限制嵌套深度、集合数量和值长度
 
 用户自定义结构体可以通过显式转换函数接入：
 

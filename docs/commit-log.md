@@ -167,6 +167,19 @@
 
 ## Commit 11
 
+**Hash：** `1b009c9`
+
+**Message：** `Remove non-goals from README`
+
+**目的：** 清理 README 中不再需要公开展示的非目标列表，让首页集中说明项目定位、当前范围和使用入口。
+
+**主要变更：**
+
+- 删除 README 中冗长的非目标说明。
+- 保留“不依赖反射、不兼容 protobuf、不重复官方 JSON”这一核心边界。
+
+## Commit 12
+
 **Hash：** `c4df95f`
 
 **Message：** `Add MIT license`
@@ -178,7 +191,7 @@
 - 在仓库根目录新增 `LICENSE`。
 - 许可证与 `moon.mod` 中声明的 MIT 保持一致。
 
-## Commit 12
+## Commit 13
 
 **Hash：** `e44e1b8`
 
@@ -195,7 +208,7 @@
 - 增加截断输入不推进读取位置等边界测试。
 - 严格模式下通过 `moon check --deny-warn` 和 `moon test --deny-warn`。
 
-## Commit 13
+## Commit 14
 
 **Hash：** `538fb38`
 
@@ -213,7 +226,7 @@
 - 更新 README，加入当前能力和最小编解码示例。
 - 严格模式下通过 `moon check --deny-warn` 和 `moon test --deny-warn`。
 
-## Commit 14
+## Commit 15
 
 **Hash：** `0c4b4c5`
 
@@ -227,7 +240,7 @@
 - 新增 GitHub Actions CI，自动执行格式检查、严格 check、严格 build、严格 test 和 demo。
 - 更新 README，加入 demo 运行命令。
 
-## Commit 15
+## Commit 16
 
 **Hash：** `2b30d72`
 
@@ -242,7 +255,7 @@
 - 测试适配器面对不兼容 `BinValue` 时返回结构化错误。
 - 扩充 `README.mbt.md` 中的结构体接入示例。
 
-## Commit 16
+## Commit 17
 
 **Hash：** `ea0efbd`
 
@@ -258,9 +271,9 @@
 - 增加资源限制和非法限制配置测试。
 - 更新二进制格式文档中的错误模型和受限解码说明。
 
-## Commit 17
+## Commit 18
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `6722b63`
 
 **Message：** `Prepare module metadata for release`
 
@@ -272,6 +285,21 @@
 - 在 `moon.mod` 中补充 GitHub repository 元数据。
 - 同步更新 demo 包的模块导入路径。
 - 重新生成公开 API 描述并执行发布包预检。
+
+## Commit 19
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Document mooncakes release`
+
+**目的：** 记录 `hourizon/moonbin@0.1.0` 正式发布结果，并让用户能够从 README 直接安装和访问包页面。
+
+**主要变更：**
+
+- 在两个 README 中增加 `moon add hourizon/moonbin@0.1.0` 安装命令。
+- 增加 mooncakes.io 包页面链接和解码资源限制说明。
+- 补回遗漏的 `1b009c9` 提交记录，并校正后续 commit 编号。
+- 同步 `moon info` 生成的公开 API 文件。
 
 ## 后续维护说明
 

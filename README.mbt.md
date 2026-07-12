@@ -2,6 +2,14 @@
 
 moonbin 第一版以 `BinValue` 作为核心数据模型，编码器和解码器围绕：
 
+## 安装
+
+```bash
+moon add hourizon/moonbin@0.1.0
+```
+
+[在 mooncakes.io 查看 hourizon/moonbin](https://mooncakes.io/docs/hourizon/moonbin)
+
 ```text
 BinValue <-> Bytes
 ```
