@@ -244,7 +244,7 @@
 
 ## Commit 16
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `ea0efbd`
 
 **Message：** `Add configurable decode resource limits`
 
@@ -257,6 +257,21 @@
 - 新增 `LimitExceeded` 解码错误及对应分类和消息。
 - 增加资源限制和非法限制配置测试。
 - 更新二进制格式文档中的错误模型和受限解码说明。
+
+## Commit 17
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Prepare module metadata for release`
+
+**目的：** 统一 MoonBit 模块身份与公开仓库所有者，为 mooncakes.io 打包和发布做准备。
+
+**主要变更：**
+
+- 将模块名从早期占位值改为 `hourizon/moonbin`。
+- 在 `moon.mod` 中补充 GitHub repository 元数据。
+- 同步更新 demo 包的模块导入路径。
+- 重新生成公开 API 描述并执行发布包预检。
 
 ## 后续维护说明
 

@@ -1,5 +1,5 @@
 import {
-  "hou/moonbin",
+  "hourizon/moonbin",
 }
 
 options(
