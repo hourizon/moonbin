@@ -104,3 +104,47 @@ test "decode rejects invalid lengths and utf8" {
     Err(DecodeError::InvalidLength("array count exceeds remaining bytes")),
   )
 }
+
+///|
+test "decode enforces resource limits" {
+  let no_nesting : DecodeLimits = {
+    max_depth: 0,
+    max_collection_items: 10,
+    max_value_bytes: 10,
+  }
+  assert_true(
+    decode_with_limits(encode(BinValue::Array([BinValue::Null])), no_nesting) ==
+    Err(DecodeError::LimitExceeded("maximum nesting depth")),
+  )
+  let one_byte_values : DecodeLimits = {
+    max_depth: 10,
+    max_collection_items: 10,
+    max_value_bytes: 1,
+  }
+  assert_true(
+    decode_with_limits(encode(BinValue::String("Hi")), one_byte_values) ==
+    Err(DecodeError::LimitExceeded("string byte length")),
+  )
+  let no_items : DecodeLimits = {
+    max_depth: 10,
+    max_collection_items: 0,
+    max_value_bytes: 10,
+  }
+  assert_true(
+    decode_with_limits(encode(BinValue::Array([BinValue::Null])), no_items) ==
+    Err(DecodeError::LimitExceeded("array item count")),
+  )
+}
+
+///|
+test "decode rejects negative resource limits" {
+  let invalid : DecodeLimits = {
+    max_depth: -1,
+    max_collection_items: 0,
+    max_value_bytes: 0,
+  }
+  assert_true(
+    decode_with_limits(b"\x00", invalid) ==
+    Err(DecodeError::InvalidLength("decode limits must be non-negative")),
+  )
+}

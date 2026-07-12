@@ -23,6 +23,20 @@ const TAG_ARRAY : Int = 0x06
 const TAG_OBJECT : Int = 0x07
 
 ///|
+/// Resource limits applied while decoding untrusted input.
+pub(all) struct DecodeLimits {
+  max_depth : Int
+  max_collection_items : Int
+  max_value_bytes : Int
+} derive(Eq, Debug)
+
+///|
+/// Returns conservative default limits for one decoded value.
+pub fn default_decode_limits() -> DecodeLimits {
+  { max_depth: 64, max_collection_items: 1000000, max_value_bytes: 16777216 }
+}
+
+///|
 fn write_tag(writer : ByteWriter, tag : Int) -> Unit {
   ignore(writer.write_u8(tag))
 }
@@ -109,7 +123,14 @@ fn decode_utf8(bytes : Bytes) -> Result[String, DecodeError] {
 }
 
 ///|
-fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
+fn decode_from(
+  reader : ByteReader,
+  limits : DecodeLimits,
+  depth : Int,
+) -> Result[BinValue, DecodeError] {
+  if depth > limits.max_depth {
+    return Err(DecodeError::LimitExceeded("maximum nesting depth"))
+  }
   let tag = match reader.read_u8() {
     Ok(value) => value
     Err(err) => return Err(err)
@@ -148,6 +169,9 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
         Ok(value) => value
         Err(err) => return Err(err)
       }
+      if length > limits.max_value_bytes {
+        return Err(DecodeError::LimitExceeded("string byte length"))
+      }
       let bytes = match reader.read_bytes(length) {
         Ok(value) => value
         Err(err) => return Err(err)
@@ -162,6 +186,9 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
         Ok(value) => value
         Err(err) => return Err(err)
       }
+      if length > limits.max_value_bytes {
+        return Err(DecodeError::LimitExceeded("byte value length"))
+      }
       match reader.read_bytes(length) {
         Ok(value) => Ok(BinValue::Bytes(value))
         Err(err) => Err(err)
@@ -172,6 +199,9 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
         Ok(value) => value
         Err(err) => return Err(err)
       }
+      if count > limits.max_collection_items {
+        return Err(DecodeError::LimitExceeded("array item count"))
+      }
       if count > reader.remaining() {
         return Err(
           DecodeError::InvalidLength("array count exceeds remaining bytes"),
@@ -179,7 +209,7 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
       }
       let values : Array[BinValue] = []
       for _ in 0..<count {
-        match decode_from(reader) {
+        match decode_from(reader, limits, depth + 1) {
           Ok(value) => values.push(value)
           Err(err) => return Err(err)
         }
@@ -190,6 +220,9 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
       let count = match read_length(reader) {
         Ok(value) => value
         Err(err) => return Err(err)
+      }
+      if count > limits.max_collection_items {
+        return Err(DecodeError::LimitExceeded("object entry count"))
       }
       if count > reader.remaining() / 5 {
         return Err(
@@ -202,6 +235,9 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
           Ok(value) => value
           Err(err) => return Err(err)
         }
+        if key_length > limits.max_value_bytes {
+          return Err(DecodeError::LimitExceeded("object key byte length"))
+        }
         let key_bytes = match reader.read_bytes(key_length) {
           Ok(value) => value
           Err(err) => return Err(err)
@@ -210,7 +246,7 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
           Ok(value) => value
           Err(err) => return Err(err)
         }
-        let value = match decode_from(reader) {
+        let value = match decode_from(reader, limits, depth + 1) {
           Ok(value) => value
           Err(err) => return Err(err)
         }
@@ -223,12 +259,20 @@ fn decode_from(reader : ByteReader) -> Result[BinValue, DecodeError] {
 }
 
 ///|
-/// Decodes exactly one moonbin v1 value.
+/// Decodes exactly one moonbin v1 value using explicit resource limits.
 ///
 /// The function rejects unread trailing bytes after the top-level value.
-pub fn decode(bytes : Bytes) -> Result[BinValue, DecodeError] {
+pub fn decode_with_limits(
+  bytes : Bytes,
+  limits : DecodeLimits,
+) -> Result[BinValue, DecodeError] {
+  if limits.max_depth < 0 ||
+    limits.max_collection_items < 0 ||
+    limits.max_value_bytes < 0 {
+    return Err(DecodeError::InvalidLength("decode limits must be non-negative"))
+  }
   let reader = ByteReader::new(bytes)
-  match decode_from(reader) {
+  match decode_from(reader, limits, 0) {
     Err(err) => Err(err)
     Ok(value) =>
       if reader.remaining() == 0 {
@@ -237,4 +281,10 @@ pub fn decode(bytes : Bytes) -> Result[BinValue, DecodeError] {
         Err(DecodeError::TrailingBytes(reader.remaining()))
       }
   }
+}
+
+///|
+/// Decodes exactly one moonbin v1 value using conservative default limits.
+pub fn decode(bytes : Bytes) -> Result[BinValue, DecodeError] {
+  decode_with_limits(bytes, default_decode_limits())
 }

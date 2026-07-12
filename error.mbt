@@ -8,6 +8,7 @@ pub(all) enum DecodeError {
   InvalidTag(Int)
   InvalidType(String, String)
   InvalidLength(String)
+  LimitExceeded(String)
   TrailingBytes(Int)
 } derive(Eq, Debug)
 
@@ -19,6 +20,7 @@ pub fn DecodeError::kind(self : DecodeError) -> String {
     InvalidTag(_) => "invalid_tag"
     InvalidType(_, _) => "invalid_type"
     InvalidLength(_) => "invalid_length"
+    LimitExceeded(_) => "limit_exceeded"
     TrailingBytes(_) => "trailing_bytes"
   }
 }
@@ -32,6 +34,7 @@ pub fn DecodeError::message(self : DecodeError) -> String {
     InvalidType(expected, actual) =>
       "expected \{expected}, but decoded \{actual}"
     InvalidLength(reason) => "invalid length: \{reason}"
+    LimitExceeded(limit) => "decode limit exceeded: \{limit}"
     TrailingBytes(count) => "trailing bytes after top-level value: \{count}"
   }
 }

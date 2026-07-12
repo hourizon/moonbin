@@ -259,7 +259,12 @@ moonbin v1 should define at least these decode errors:
 | `InvalidTag` | The tag byte is not known in this format version. |
 | `InvalidType` | A caller requested a specific type but the encoded value has another tag. |
 | `InvalidLength` | A length or count field is invalid for the current input. |
+| `LimitExceeded` | Input exceeds configured depth, collection, or byte limits. |
 | `TrailingBytes` | Top-level decode completed but unread bytes remained. |
+
+The default `decode()` entry point applies conservative limits. Applications
+that trust larger payloads can call `decode_with_limits()` with explicit
+`DecodeLimits` values.
 
 ## 10. Compatibility Rules
 

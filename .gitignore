@@ -2,6 +2,7 @@
 target/
 .moon/
 _build/
+cmd/**/pkg.generated.mbti
 
 # Editor and system files
 .vscode/

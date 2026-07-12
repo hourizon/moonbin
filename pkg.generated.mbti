@@ -9,6 +9,10 @@ import {
 // Values
 pub fn decode(Bytes) -> Result[BinValue, DecodeError]
 
+pub fn decode_with_limits(Bytes, DecodeLimits) -> Result[BinValue, DecodeError]
+
+pub fn default_decode_limits() -> DecodeLimits
+
 pub fn encode(BinValue) -> Bytes
 
 pub fn error_model_name() -> String
@@ -65,10 +69,17 @@ pub(all) enum DecodeError {
   InvalidTag(Int)
   InvalidType(String, String)
   InvalidLength(String)
+  LimitExceeded(String)
   TrailingBytes(Int)
 } derive(Eq, @debug.Debug)
 pub fn DecodeError::kind(Self) -> String
 pub fn DecodeError::message(Self) -> String
+
+pub(all) struct DecodeLimits {
+  max_depth : Int
+  max_collection_items : Int
+  max_value_bytes : Int
+} derive(Eq, @debug.Debug)
 
 // Type aliases
 

@@ -229,7 +229,7 @@
 
 ## Commit 15
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `2b30d72`
 
 **Message：** `Add typed struct adapter example`
 
@@ -241,6 +241,22 @@
 - 测试 User 经过编码、解码和类型恢复后的完整往返。
 - 测试适配器面对不兼容 `BinValue` 时返回结构化错误。
 - 扩充 `README.mbt.md` 中的结构体接入示例。
+
+## Commit 16
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Add configurable decode resource limits`
+
+**目的：** 为不可信二进制输入增加资源边界，避免异常嵌套、集合计数或值长度造成过深递归和不受控内存使用。
+
+**主要变更：**
+
+- 新增 `DecodeLimits`、`default_decode_limits()` 和 `decode_with_limits()`。
+- 默认限制嵌套深度、集合元素数量和单个字符串或字节值的长度。
+- 新增 `LimitExceeded` 解码错误及对应分类和消息。
+- 增加资源限制和非法限制配置测试。
+- 更新二进制格式文档中的错误模型和受限解码说明。
 
 ## 后续维护说明
 
