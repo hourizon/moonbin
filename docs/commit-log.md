@@ -197,7 +197,7 @@
 
 ## Commit 13
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `538fb38`
 
 **Message：** `Implement BinValue binary codec`
 
@@ -212,6 +212,20 @@
 - 新增 `codec_test.mbt`，覆盖固定字节布局、基础类型与复合类型往返、错误输入。
 - 更新 README，加入当前能力和最小编解码示例。
 - 严格模式下通过 `moon check --deny-warn` 和 `moon test --deny-warn`。
+
+## Commit 14
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Add runnable demo and continuous integration`
+
+**目的：** 提供可直接运行的项目入口，并让代码格式、编译、测试和示例在每次推送时自动接受验证。
+
+**主要变更：**
+
+- 新增 `cmd/demo` 主包，通过 `moon run cmd/demo` 展示 Object 的编码与解码。
+- 新增 GitHub Actions CI，自动执行格式检查、严格 check、严格 build、严格 test 和 demo。
+- 更新 README，加入 demo 运行命令。
 
 ## 后续维护说明
 

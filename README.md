@@ -35,6 +35,12 @@ let bytes = encode(value)
 let decoded = decode(bytes)
 ```
 
+运行仓库内的完整示例：
+
+```bash
+moon run cmd/demo
+```
+
 ## 文档
 
 - [二进制格式说明](docs/format.md)
