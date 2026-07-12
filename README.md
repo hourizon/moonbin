@@ -12,15 +12,27 @@ moonbin 会定义一套紧凑、可文档化、可测试的自定义二进制格
 
 ## 当前范围
 
-- 定义 `BinValue` 通用数据模型
-- 定义 `DecodeError` 错误模型
-- 设计 moonbin v1 二进制格式
-- 为后续 `ByteWriter`、`ByteReader`、编码器和解码器搭建项目框架
+- 提供 `BinValue` 通用数据模型和 `DecodeError` 错误模型
+- 实现 moonbin v1 二进制格式
+- 支持 Null、Bool、Int、Double、String 和 Bytes
+- 支持 Array 和 Object 的递归编解码
+- 对非法标签、非法 Bool、截断输入、非法 UTF-8 和尾随字节返回明确错误
 
 用户自定义结构体可以通过显式转换函数接入：
 
 ```text
 User <-> BinValue <-> Bytes
+```
+
+## 快速使用
+
+```moonbit
+let value = BinValue::Object([
+  ("name", BinValue::String("Hou")),
+  ("age", BinValue::Int(18)),
+])
+let bytes = encode(value)
+let decoded = decode(bytes)
 ```
 
 ## 文档

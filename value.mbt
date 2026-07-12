@@ -13,7 +13,7 @@ pub(all) enum BinValue {
   Bytes(Bytes)
   Array(Array[BinValue])
   Object(Array[(String, BinValue)])
-}
+} derive(Eq, Debug)
 
 ///|
 /// Returns the human-readable kind name of a `BinValue`.

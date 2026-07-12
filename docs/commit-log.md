@@ -180,7 +180,7 @@
 
 ## Commit 12
 
-**Hash：** 本次提交完成后以 `git log` 为准。
+**Hash：** `e44e1b8`
 
 **Message：** `Upgrade byte reader and writer primitives`
 
@@ -193,6 +193,24 @@
 - `ByteReader` 改为直接读取 `Bytes`。
 - 支持 big-endian u32、i64、f64 和定长原始 Bytes 读取。
 - 增加截断输入不推进读取位置等边界测试。
+- 严格模式下通过 `moon check --deny-warn` 和 `moon test --deny-warn`。
+
+## Commit 13
+
+**Hash：** 本次提交完成后以 `git log` 为准。
+
+**Message：** `Implement BinValue binary codec`
+
+**目的：** 完成 moonbin v1 从通用数据模型到二进制字节的核心闭环，使项目从底层读写框架进入可实际使用的编解码阶段。
+
+**主要变更：**
+
+- 新增 `codec.mbt`，实现 `encode()` 和 `decode()` 公共 API。
+- 为 Null、Bool、Int、Double、String、Bytes、Array 和 Object 实现确定性的 big-endian 编码。
+- 支持 Array 和 Object 的递归编解码，并保持对象条目顺序。
+- 对非法标签、非法 Bool、截断输入、非法 UTF-8、异常长度和尾随字节返回明确错误。
+- 新增 `codec_test.mbt`，覆盖固定字节布局、基础类型与复合类型往返、错误输入。
+- 更新 README，加入当前能力和最小编解码示例。
 - 严格模式下通过 `moon check --deny-warn` 和 `moon test --deny-warn`。
 
 ## 后续维护说明

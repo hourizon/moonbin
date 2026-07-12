@@ -1,0 +1,75 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "hou/moonbin"
+
+import {
+  "moonbitlang/core/buffer",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn decode(Bytes) -> Result[BinValue, DecodeError]
+
+pub fn encode(BinValue) -> Bytes
+
+pub fn error_model_name() -> String
+
+pub fn value_model_name() -> String
+
+pub fn version() -> String
+
+// Errors
+
+// Types and methods
+pub(all) enum BinValue {
+  Null
+  Bool(Bool)
+  Int(Int)
+  Double(Double)
+  String(String)
+  Bytes(Bytes)
+  Array(Array[BinValue])
+  Object(Array[(String, BinValue)])
+} derive(Eq, @debug.Debug)
+pub fn BinValue::kind(Self) -> String
+
+pub struct ByteReader {
+  data : Bytes
+  mut offset : Int
+}
+pub fn ByteReader::is_empty(Self) -> Bool
+pub fn ByteReader::len(Self) -> Int
+pub fn ByteReader::new(Bytes) -> Self
+pub fn ByteReader::position(Self) -> Int
+pub fn ByteReader::read_bytes(Self, Int) -> Result[Bytes, DecodeError]
+pub fn ByteReader::read_f64(Self) -> Result[Double, DecodeError]
+pub fn ByteReader::read_i64(Self) -> Result[Int64, DecodeError]
+pub fn ByteReader::read_u32(Self) -> Result[UInt, DecodeError]
+pub fn ByteReader::read_u8(Self) -> Result[Int, DecodeError]
+pub fn ByteReader::remaining(Self) -> Int
+
+pub struct ByteWriter {
+  buffer : @buffer.Buffer
+}
+pub fn ByteWriter::is_empty(Self) -> Bool
+pub fn ByteWriter::len(Self) -> Int
+pub fn ByteWriter::new() -> Self
+pub fn ByteWriter::to_bytes(Self) -> Bytes
+pub fn ByteWriter::write_bytes(Self, Bytes) -> Unit
+pub fn ByteWriter::write_f64(Self, Double) -> Unit
+pub fn ByteWriter::write_i64(Self, Int64) -> Unit
+pub fn ByteWriter::write_u32(Self, UInt) -> Unit
+pub fn ByteWriter::write_u8(Self, Int) -> Bool
+
+pub(all) enum DecodeError {
+  UnexpectedEOF
+  InvalidTag(Int)
+  InvalidType(String, String)
+  InvalidLength(String)
+  TrailingBytes(Int)
+} derive(Eq, @debug.Debug)
+pub fn DecodeError::kind(Self) -> String
+pub fn DecodeError::message(Self) -> String
+
+// Type aliases
+
+// Traits

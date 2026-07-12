@@ -9,7 +9,7 @@ pub(all) enum DecodeError {
   InvalidType(String, String)
   InvalidLength(String)
   TrailingBytes(Int)
-}
+} derive(Eq, Debug)
 
 ///|
 /// Returns a stable category name for a decode error.

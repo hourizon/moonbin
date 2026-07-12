@@ -1,12 +1,26 @@
 # moonbin
 
-moonbin 第一版以 `BinValue` 作为核心数据模型，后续编码器和解码器会围绕：
+moonbin 第一版以 `BinValue` 作为核心数据模型，编码器和解码器围绕：
 
 ```text
 BinValue <-> Bytes
 ```
 
 展开。
+
+## 编解码示例
+
+```moonbit nocheck
+///|
+test "encode and decode a value" {
+  let value = BinValue::Object([
+    ("name", BinValue::String("Hou")),
+    ("age", BinValue::Int(18)),
+  ])
+  let bytes = encode(value)
+  assert_true(decode(bytes) == Ok(value))
+}
+```
 
 ## 基础值示例
 
